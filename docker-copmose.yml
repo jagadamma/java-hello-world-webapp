@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  java:
+    image: jagadamma/java:v1  # Use your image name if pushing to Docker Hub
+    ports:
+      - "8001:8080"  # Map host port 8001 to container port 8080 (Tomcat's default)
+    volumes:
+      - tomcat-webapps:/usr/local/tomcat/webapps
+      - tomcat-logs:/usr/local/tomcat/logs
+      - tomcat-conf:/usr/local/tomcat/conf
+    deploy:
+      mode: replicated
+      replicas: 6
+      restart_policy:
+        condition: on-failure  # Restart the service if it fails
+
+volumes:
+  tomcat-webapps:
+  tomcat-logs:
+  tomcat-conf:
+
+~               
